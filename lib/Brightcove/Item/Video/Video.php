@@ -22,7 +22,17 @@ class Video extends ObjectBase {
    * @var string
    */
   protected $account_id;
+
+
   /**
+   * String representing the ad key/value pairs assigned to the video.
+   * Key/value pairs are formatted as key=value and are separated by ampersands.
+   * For example: "adKeys": "category=sports&live=true"
+   * @var string
+   */
+  protected $ad_keys;
+
+    /**
    * It will be true if all processing of renditions and images is complete.
    *
    * @var boolean
@@ -168,6 +178,7 @@ class Video extends ObjectBase {
     parent::applyJSON($json);
     $this->applyProperty($json, 'id');
     $this->applyProperty($json, 'account_id');
+    $this->applyProperty($json, 'ad_keys');
     $this->applyProperty($json, 'complete');
     $this->applyProperty($json, 'created_at');
     $this->applyProperty($json, 'cue_points', NULL, CuePoint::class, TRUE);
@@ -223,6 +234,24 @@ class Video extends ObjectBase {
   public function setAccountId($account_id) {
     $this->account_id = $account_id;
     $this->fieldChanged('account_id');
+    return $this;
+  }
+
+
+  /**
+   * @return string
+   */
+  public function getAdKeys(){
+    return $this->ad_keys;
+  }
+
+  /**
+   * @param string $complete
+   * @return $this
+   */
+  public function setAdKeys($ad_keys) {
+    $this->ad_keys = $ad_keys;
+    $this->fieldChanged('ad_keys');
     return $this;
   }
 
