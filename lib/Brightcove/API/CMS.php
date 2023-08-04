@@ -2,7 +2,11 @@
 namespace Brightcove\API;
 
 use Brightcove\API\Request\SubscriptionRequest;
+use Brightcove\Item\ObjectInterface;
 use Brightcove\Item\Subscription;
+use Brightcove\Item\Video\Poster;
+use Brightcove\Item\Video\Rendition;
+use Brightcove\Item\Video\Thumbnail;
 use Brightcove\Item\Video\Video;
 use Brightcove\Item\Video\Source;
 use Brightcove\Item\Video\Images;
@@ -229,4 +233,27 @@ class CMS extends API {
     $this->cmsRequest('DELETE', "/subscriptions/{$subscription_id}", NULL);
   }
 
+    /**
+     * @param $video_id
+     * @param Rendition $rendition
+     */
+    public function createRendition($video_id, Rendition $rendition) {
+        return $this->cmsRequest('POST', "/videos/{$video_id}/assets/renditions", Rendition::class, FALSE, $rendition);
+    }
+
+    /**
+     * @param $video_id
+     * @param Poster $poster
+     */
+    public function createPoster($video_id, Poster $poster) {
+        return $this->cmsRequest('POST', "/videos/{$video_id}/assets/poster", Poster::class, FALSE, $poster);
+    }
+
+    /**
+     * @param $video_id
+     * @param Thumbnail $thumbnail
+     */
+    public function createThumbnail($video_id, Thumbnail $thumbnail) {
+        return $this->cmsRequest('POST', "/videos/{$video_id}/assets/thumbnail", Thumbnail::class, FALSE, $thumbnail);
+    }
 }
